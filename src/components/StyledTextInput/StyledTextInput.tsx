@@ -65,7 +65,7 @@ export const StyledTextInput: React.FC<StyledTextInputProps> = ({
         {secureTextEntry && (
           <IconButton
             onPress={() => setIsPasswordVisible(!isPasswordVisible)}
-            icon={isPasswordVisible ? Icons.Vision : Icons.VisionLow}
+            icon={isPasswordVisible ? Icons.VisionLow : Icons.Vision}
             style={styles.iconButton}
             iconSize={xScale(18)}
             iconStyle={isPasswordVisible && styles.iconPasswordInactive}

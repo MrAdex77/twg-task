@@ -12,9 +12,9 @@ const Stack = createNativeStackNavigator<RootStackParamList>();
 export const StackNavigator = () => {
   return (
     <Stack.Navigator>
-      <Stack.Screen name={Routes.DevScreen} component={DevScreen} />
-      <Stack.Screen name={Routes.RoomsScreen} component={RoomsScreen} />
-      <Stack.Screen name={Routes.ChatScreen} component={ChatScreen} />
+      <Stack.Screen name={Routes.Dev} component={DevScreen} />
+      <Stack.Screen name={Routes.Rooms} component={RoomsScreen} />
+      <Stack.Screen name={Routes.Chat} component={ChatScreen} />
     </Stack.Navigator>
   );
 };

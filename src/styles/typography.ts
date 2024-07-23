@@ -88,11 +88,11 @@ type Styles =
 export const defaultStyles: Record<Styles, TextStyle> = {
   heading1: {
     ...fonts.poppinsBold,
-    fontSize: yScale(36),
+    fontSize: yScale(28),
   },
   heading2: {
     ...fonts.poppinsBold,
-    fontSize: yScale(28),
+    fontSize: yScale(22),
   },
   heading3: {
     ...fonts.poppinsBold,

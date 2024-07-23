@@ -1,6 +1,7 @@
 export enum Routes {
-  LoginScreen = "LoginScreen",
-  RoomsScreen = "RoomsScreen",
-  ChatScreen = "ChatScreen",
-  DevScreen = "DevScreen",
+  SignUp = "SignUpScreen",
+  SignIn = "SignInScreen",
+  Rooms = "RoomsScreen",
+  Chat = "ChatScreen",
+  Dev = "DevScreen",
 }
