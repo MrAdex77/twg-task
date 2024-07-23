@@ -1,0 +1,16 @@
+export const colors = {
+  plum200: "#C692FD",
+  plum300: "#993AFC",
+  plum500: "#5603AD",
+  plum700: "#390273",
+  blue100: "#F0F8FF",
+  blue300: "#B6DEFD",
+  blue500: "#259DFA",
+  gray100: "#E9EAEE",
+  gray300: "#BFC1CC",
+  gray500: "#9FA2B2",
+  white: "#FFFFFF",
+  black: "#1A1A1A",
+  active: "#A8FF76",
+  error: "#FF445A",
+};

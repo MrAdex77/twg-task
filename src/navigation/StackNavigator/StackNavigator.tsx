@@ -4,6 +4,7 @@ import * as React from "react";
 import { Routes } from "@navigation/routes";
 import { RootStackParamList } from "@navigation/types";
 import ChatScreen from "@screens/ChatScreen/ChatScreen";
+import DevScreen from "@screens/DevScreen/DevScreen";
 import RoomsScreen from "@screens/RoomsScreen/RoomsScreen";
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
@@ -11,6 +12,7 @@ const Stack = createNativeStackNavigator<RootStackParamList>();
 export const StackNavigator = () => {
   return (
     <Stack.Navigator>
+      <Stack.Screen name={Routes.DevScreen} component={DevScreen} />
       <Stack.Screen name={Routes.RoomsScreen} component={RoomsScreen} />
       <Stack.Screen name={Routes.ChatScreen} component={ChatScreen} />
     </Stack.Navigator>

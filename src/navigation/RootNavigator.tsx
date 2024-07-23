@@ -6,7 +6,7 @@ import { StackNavigator } from "./StackNavigator/StackNavigator";
 
 export const RootNavigator = () => {
   //   const { isLoggedIn } = useAuthSelector(); // TODO: implement useAuthSelector
-  const isLoggedIn = false;
+  const isLoggedIn = true;
 
   return (
     <NavigationContainer>

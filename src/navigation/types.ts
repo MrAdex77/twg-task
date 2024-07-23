@@ -10,6 +10,7 @@ export type LogOutStackParamList = {
 export type RootStackParamList = {
   [Routes.RoomsScreen]: undefined;
   [Routes.ChatScreen]: undefined;
+  [Routes.DevScreen]: undefined;
 };
 
 export type RootStackScreenProps<T extends keyof RootStackParamList> = NativeStackScreenProps<RootStackParamList, T>;
