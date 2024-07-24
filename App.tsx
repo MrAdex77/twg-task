@@ -1,15 +1,12 @@
-import { ApolloClient, ApolloProvider, InMemoryCache } from "@apollo/client";
+import { ApolloProvider } from "@apollo/client";
 import { RootNavigator } from "@navigation/RootNavigator";
+import { AuthProvider } from "@providers/AuthProvider";
 import { useFonts } from "expo-font";
 import * as SplashScreen from "expo-splash-screen";
 import { useEffect } from "react";
+import client from "./apolloClient";
 
 SplashScreen.preventAutoHideAsync();
-
-const client = new ApolloClient({
-  uri: process.env.EXPO_GRAPHQL_API_URL,
-  cache: new InMemoryCache(),
-});
 
 export default function App() {
   const [loaded, error] = useFonts({
@@ -31,7 +28,9 @@ export default function App() {
 
   return (
     <ApolloProvider client={client}>
-      <RootNavigator />
+      <AuthProvider>
+        <RootNavigator />
+      </AuthProvider>
     </ApolloProvider>
   );
 }

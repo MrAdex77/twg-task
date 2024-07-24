@@ -2,11 +2,20 @@
 import { StyledButton } from "@components/StyledButton/StyledButton";
 import { StyledText } from "@components/StyledText/StyledText";
 import { StyledTextInput } from "@components/StyledTextInput/StyledTextInput";
+import { useAuth } from "@providers/AuthProvider";
+import SecureStorageService from "@services/SecureStorage.service";
 import { colors } from "@styles/colors";
 import { defaultStyles } from "@styles/typography";
 import { StyleSheet, View } from "react-native";
 
 const DevScreen = () => {
+  const { setIsAuthenticated } = useAuth();
+
+  const handleLogout = async () => {
+    await SecureStorageService.removeTokensFromLocal();
+    setIsAuthenticated(false);
+  };
+
   return (
     <View style={{ flex: 1, justifyContent: "center", alignItems: "center", gap: 10, backgroundColor: colors.gray500 }}>
       <StyledText style={{ ...defaultStyles.heading1 }}>Heading 1</StyledText>
@@ -20,7 +29,7 @@ const DevScreen = () => {
       <StyledText style={{ ...defaultStyles.bodyText }}>body text</StyledText>
       <StyledText style={{ ...defaultStyles.caption2 }}>caption2</StyledText>
       <StyledText style={{ ...defaultStyles.specialText }}>special text</StyledText>
-      <StyledButton label='Label' onPress={() => {}} />
+      <StyledButton label='Logout' onPress={handleLogout} />
       <StyledButton disabled label='Label' onPress={() => {}} />
       <StyledTextInput value='' placeholder='Placeholder' onChangeText={() => {}} label='label' secureTextEntry />
     </View>

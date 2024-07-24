@@ -132,7 +132,6 @@ const styles = StyleSheet.create({
     height: "100%",
     right: xScale(10),
     justifyContent: "center",
-    // backgroundColor: colors.transparent,
   },
   iconPasswordInactive: {
     color: colors.gray100,
