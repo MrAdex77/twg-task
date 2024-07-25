@@ -170,6 +170,104 @@ export type RegisterUserMutation = {
   } | null;
 };
 
+export type SendMessageMutationVariables = Exact<{
+  body: Scalars["String"]["input"];
+  roomId: Scalars["String"]["input"];
+}>;
+
+export type SendMessageMutation = {
+  __typename?: "RootMutationType";
+  sendMessage?: {
+    __typename?: "Message";
+    id?: string | null;
+    body?: string | null;
+    insertedAt?: string | null;
+    user?: {
+      __typename?: "UserType";
+      id?: string | null;
+      email?: string | null;
+      firstName?: string | null;
+      lastName?: string | null;
+      role?: string | null;
+    } | null;
+  } | null;
+};
+
+export type MessageAddedSubscriptionVariables = Exact<{
+  roomId: Scalars["String"]["input"];
+}>;
+
+export type MessageAddedSubscription = {
+  __typename?: "RootSubscriptionType";
+  messageAdded?: {
+    __typename?: "Message";
+    id?: string | null;
+    body?: string | null;
+    insertedAt?: string | null;
+    user?: {
+      __typename?: "UserType";
+      id?: string | null;
+      email?: string | null;
+      firstName?: string | null;
+      lastName?: string | null;
+      role?: string | null;
+    } | null;
+  } | null;
+};
+
+export type UsersRoomsQueryVariables = Exact<{ [key: string]: never }>;
+
+export type UsersRoomsQuery = {
+  __typename?: "RootQueryType";
+  usersRooms?: {
+    __typename?: "RoomsType";
+    user?: {
+      __typename?: "UserType";
+      email?: string | null;
+      firstName?: string | null;
+      lastName?: string | null;
+      id?: string | null;
+      role?: string | null;
+    } | null;
+    rooms?: Array<{ __typename?: "SingleRoomType"; id?: string | null; name?: string | null } | null> | null;
+  } | null;
+};
+
+export type RoomQueryVariables = Exact<{
+  id: Scalars["ID"]["input"];
+}>;
+
+export type RoomQuery = {
+  __typename?: "RootQueryType";
+  room?: {
+    __typename?: "RoomType";
+    id?: string | null;
+    name?: string | null;
+    user?: {
+      __typename?: "UserType";
+      id?: string | null;
+      email?: string | null;
+      firstName?: string | null;
+      lastName?: string | null;
+      role?: string | null;
+    } | null;
+    messages?: Array<{
+      __typename?: "Message";
+      id?: string | null;
+      body?: string | null;
+      insertedAt?: string | null;
+      user?: {
+        __typename?: "UserType";
+        id?: string | null;
+        email?: string | null;
+        firstName?: string | null;
+        lastName?: string | null;
+        role?: string | null;
+      } | null;
+    } | null> | null;
+  } | null;
+};
+
 export const LoginUserDocument = {
   kind: "Document",
   definitions: [
@@ -297,3 +395,248 @@ export const RegisterUserDocument = {
     },
   ],
 } as unknown as DocumentNode<RegisterUserMutation, RegisterUserMutationVariables>;
+export const SendMessageDocument = {
+  kind: "Document",
+  definitions: [
+    {
+      kind: "OperationDefinition",
+      operation: "mutation",
+      name: { kind: "Name", value: "SendMessage" },
+      variableDefinitions: [
+        {
+          kind: "VariableDefinition",
+          variable: { kind: "Variable", name: { kind: "Name", value: "body" } },
+          type: { kind: "NonNullType", type: { kind: "NamedType", name: { kind: "Name", value: "String" } } },
+        },
+        {
+          kind: "VariableDefinition",
+          variable: { kind: "Variable", name: { kind: "Name", value: "roomId" } },
+          type: { kind: "NonNullType", type: { kind: "NamedType", name: { kind: "Name", value: "String" } } },
+        },
+      ],
+      selectionSet: {
+        kind: "SelectionSet",
+        selections: [
+          {
+            kind: "Field",
+            name: { kind: "Name", value: "sendMessage" },
+            arguments: [
+              {
+                kind: "Argument",
+                name: { kind: "Name", value: "body" },
+                value: { kind: "Variable", name: { kind: "Name", value: "body" } },
+              },
+              {
+                kind: "Argument",
+                name: { kind: "Name", value: "roomId" },
+                value: { kind: "Variable", name: { kind: "Name", value: "roomId" } },
+              },
+            ],
+            selectionSet: {
+              kind: "SelectionSet",
+              selections: [
+                { kind: "Field", name: { kind: "Name", value: "id" } },
+                { kind: "Field", name: { kind: "Name", value: "body" } },
+                { kind: "Field", name: { kind: "Name", value: "insertedAt" } },
+                {
+                  kind: "Field",
+                  name: { kind: "Name", value: "user" },
+                  selectionSet: {
+                    kind: "SelectionSet",
+                    selections: [
+                      { kind: "Field", name: { kind: "Name", value: "id" } },
+                      { kind: "Field", name: { kind: "Name", value: "email" } },
+                      { kind: "Field", name: { kind: "Name", value: "firstName" } },
+                      { kind: "Field", name: { kind: "Name", value: "lastName" } },
+                      { kind: "Field", name: { kind: "Name", value: "role" } },
+                    ],
+                  },
+                },
+              ],
+            },
+          },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<SendMessageMutation, SendMessageMutationVariables>;
+export const MessageAddedDocument = {
+  kind: "Document",
+  definitions: [
+    {
+      kind: "OperationDefinition",
+      operation: "subscription",
+      name: { kind: "Name", value: "MessageAdded" },
+      variableDefinitions: [
+        {
+          kind: "VariableDefinition",
+          variable: { kind: "Variable", name: { kind: "Name", value: "roomId" } },
+          type: { kind: "NonNullType", type: { kind: "NamedType", name: { kind: "Name", value: "String" } } },
+        },
+      ],
+      selectionSet: {
+        kind: "SelectionSet",
+        selections: [
+          {
+            kind: "Field",
+            name: { kind: "Name", value: "messageAdded" },
+            arguments: [
+              {
+                kind: "Argument",
+                name: { kind: "Name", value: "roomId" },
+                value: { kind: "Variable", name: { kind: "Name", value: "roomId" } },
+              },
+            ],
+            selectionSet: {
+              kind: "SelectionSet",
+              selections: [
+                { kind: "Field", name: { kind: "Name", value: "id" } },
+                { kind: "Field", name: { kind: "Name", value: "body" } },
+                { kind: "Field", name: { kind: "Name", value: "insertedAt" } },
+                {
+                  kind: "Field",
+                  name: { kind: "Name", value: "user" },
+                  selectionSet: {
+                    kind: "SelectionSet",
+                    selections: [
+                      { kind: "Field", name: { kind: "Name", value: "id" } },
+                      { kind: "Field", name: { kind: "Name", value: "email" } },
+                      { kind: "Field", name: { kind: "Name", value: "firstName" } },
+                      { kind: "Field", name: { kind: "Name", value: "lastName" } },
+                      { kind: "Field", name: { kind: "Name", value: "role" } },
+                    ],
+                  },
+                },
+              ],
+            },
+          },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<MessageAddedSubscription, MessageAddedSubscriptionVariables>;
+export const UsersRoomsDocument = {
+  kind: "Document",
+  definitions: [
+    {
+      kind: "OperationDefinition",
+      operation: "query",
+      name: { kind: "Name", value: "UsersRooms" },
+      selectionSet: {
+        kind: "SelectionSet",
+        selections: [
+          {
+            kind: "Field",
+            name: { kind: "Name", value: "usersRooms" },
+            selectionSet: {
+              kind: "SelectionSet",
+              selections: [
+                {
+                  kind: "Field",
+                  name: { kind: "Name", value: "user" },
+                  selectionSet: {
+                    kind: "SelectionSet",
+                    selections: [
+                      { kind: "Field", name: { kind: "Name", value: "email" } },
+                      { kind: "Field", name: { kind: "Name", value: "firstName" } },
+                      { kind: "Field", name: { kind: "Name", value: "lastName" } },
+                      { kind: "Field", name: { kind: "Name", value: "id" } },
+                      { kind: "Field", name: { kind: "Name", value: "role" } },
+                    ],
+                  },
+                },
+                {
+                  kind: "Field",
+                  name: { kind: "Name", value: "rooms" },
+                  selectionSet: {
+                    kind: "SelectionSet",
+                    selections: [
+                      { kind: "Field", name: { kind: "Name", value: "id" } },
+                      { kind: "Field", name: { kind: "Name", value: "name" } },
+                    ],
+                  },
+                },
+              ],
+            },
+          },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<UsersRoomsQuery, UsersRoomsQueryVariables>;
+export const RoomDocument = {
+  kind: "Document",
+  definitions: [
+    {
+      kind: "OperationDefinition",
+      operation: "query",
+      name: { kind: "Name", value: "Room" },
+      variableDefinitions: [
+        {
+          kind: "VariableDefinition",
+          variable: { kind: "Variable", name: { kind: "Name", value: "id" } },
+          type: { kind: "NonNullType", type: { kind: "NamedType", name: { kind: "Name", value: "ID" } } },
+        },
+      ],
+      selectionSet: {
+        kind: "SelectionSet",
+        selections: [
+          {
+            kind: "Field",
+            name: { kind: "Name", value: "room" },
+            arguments: [
+              { kind: "Argument", name: { kind: "Name", value: "id" }, value: { kind: "Variable", name: { kind: "Name", value: "id" } } },
+            ],
+            selectionSet: {
+              kind: "SelectionSet",
+              selections: [
+                { kind: "Field", name: { kind: "Name", value: "id" } },
+                { kind: "Field", name: { kind: "Name", value: "name" } },
+                {
+                  kind: "Field",
+                  name: { kind: "Name", value: "user" },
+                  selectionSet: {
+                    kind: "SelectionSet",
+                    selections: [
+                      { kind: "Field", name: { kind: "Name", value: "id" } },
+                      { kind: "Field", name: { kind: "Name", value: "email" } },
+                      { kind: "Field", name: { kind: "Name", value: "firstName" } },
+                      { kind: "Field", name: { kind: "Name", value: "lastName" } },
+                      { kind: "Field", name: { kind: "Name", value: "role" } },
+                    ],
+                  },
+                },
+                {
+                  kind: "Field",
+                  name: { kind: "Name", value: "messages" },
+                  selectionSet: {
+                    kind: "SelectionSet",
+                    selections: [
+                      { kind: "Field", name: { kind: "Name", value: "id" } },
+                      { kind: "Field", name: { kind: "Name", value: "body" } },
+                      { kind: "Field", name: { kind: "Name", value: "insertedAt" } },
+                      {
+                        kind: "Field",
+                        name: { kind: "Name", value: "user" },
+                        selectionSet: {
+                          kind: "SelectionSet",
+                          selections: [
+                            { kind: "Field", name: { kind: "Name", value: "id" } },
+                            { kind: "Field", name: { kind: "Name", value: "email" } },
+                            { kind: "Field", name: { kind: "Name", value: "firstName" } },
+                            { kind: "Field", name: { kind: "Name", value: "lastName" } },
+                            { kind: "Field", name: { kind: "Name", value: "role" } },
+                          ],
+                        },
+                      },
+                    ],
+                  },
+                },
+              ],
+            },
+          },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<RoomQuery, RoomQueryVariables>;

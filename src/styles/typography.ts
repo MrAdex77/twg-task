@@ -96,7 +96,7 @@ export const defaultStyles: Record<Styles, TextStyle> = {
   },
   heading3: {
     ...fonts.poppinsBold,
-    fontSize: yScale(22),
+    fontSize: yScale(15),
   },
   heading4: {
     ...fonts.poppinsSemiBold,

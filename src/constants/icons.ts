@@ -8,6 +8,7 @@ enum Icon {
   VideoCall = "VideoCall",
   VisionLow = "VisionLow",
   Vision = "Vision",
+  CaretLeft = "CaretLeft",
 }
 
 const Icons: Record<Icon, string | NodeRequire> = {
@@ -20,6 +21,7 @@ const Icons: Record<Icon, string | NodeRequire> = {
   [Icon.VideoCall]: require("@assets/icons/videocall.svg"),
   [Icon.VisionLow]: require("@assets/icons/vision-low.svg"),
   [Icon.Vision]: require("@assets/icons/vision.svg"),
+  [Icon.CaretLeft]: require("@assets/icons/Caret-left.svg"),
 };
 
 export { Icon, Icons };

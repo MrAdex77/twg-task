@@ -2,6 +2,7 @@ import React from "react";
 import { ActivityIndicator, ImageBackground, ScrollView, View } from "react-native";
 import { SafeAreaView, useSafeAreaInsets } from "react-native-safe-area-context";
 
+import { DEFAULT_SAFE_AREA_EDGES, VERTICAL_SAFE_AREA_EDGES } from "@constants/common";
 import { styles } from "./ScreenWrapper.styles";
 import type { ScreenWrapperProps } from "./ScreenWrapper.types";
 
@@ -12,13 +13,13 @@ export const ScreenWrapper = ({
   isError,
   isNoPadding,
   isScroll,
-  hasBottomSafeArea,
   contentContainerStyle,
   noScrollableContent,
   showHeader,
   bounces,
   safeAreaProps,
   backgroundImg,
+  hasSafeArea = true,
 }: ScreenWrapperProps) => {
   const { bottom, top } = useSafeAreaInsets();
 
@@ -28,7 +29,10 @@ export const ScreenWrapper = ({
   // }
 
   return (
-    <SafeAreaView {...safeAreaProps} style={styles.safeArea}>
+    <SafeAreaView
+      {...safeAreaProps}
+      style={[styles.safeArea, styles.container]}
+      edges={hasSafeArea ? VERTICAL_SAFE_AREA_EDGES : DEFAULT_SAFE_AREA_EDGES}>
       {isScroll ? (
         <>
           <ScrollView

@@ -8,9 +8,11 @@ export type LogOutStackParamList = {
 
 export type RootStackParamList = {
   [Routes.Rooms]: undefined;
-  [Routes.Chat]: undefined;
+  [Routes.Chat]: { id: string };
   [Routes.Dev]: undefined;
 };
 
 export type SignUpScreenProps = NativeStackScreenProps<LogOutStackParamList, Routes.SignUp>;
 export type SignInScreenProps = NativeStackScreenProps<LogOutStackParamList, Routes.SignIn>;
+export type RoomsScreenProps = NativeStackScreenProps<RootStackParamList, Routes.Rooms>;
+export type ChatScreenProps = NativeStackScreenProps<RootStackParamList, Routes.Chat>;

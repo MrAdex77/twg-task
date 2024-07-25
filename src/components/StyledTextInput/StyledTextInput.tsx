@@ -4,8 +4,9 @@ import { Icons } from "@constants/icons";
 import { colors } from "@styles/colors";
 import { defaultStyles } from "@styles/typography";
 import { xScale, yScale } from "@utils/scale";
-import React, { useMemo, useState } from "react";
-import { StyleSheet, TextInput, TextInputProps, TextStyle, View, ViewStyle } from "react-native";
+import { ImageStyle } from "expo-image";
+import React, { useMemo, useRef, useState } from "react";
+import { StyleProp, StyleSheet, TextInput, TextInputProps, TextStyle, View, ViewStyle } from "react-native";
 
 export interface StyledTextInputProps extends TextInputProps {
   disabled?: boolean;
@@ -32,8 +33,8 @@ export const StyledTextInput: React.FC<StyledTextInputProps> = ({
   rightIcon,
   ...rest
 }) => {
+  const inputRef = useRef<TextInput>(null);
   const [isPasswordVisible, setIsPasswordVisible] = useState<boolean>(secureTextEntry);
-  const [isFocused, setIsFocused] = useState<boolean>(false);
 
   const textInputStyle = useMemo(
     () => ({
@@ -41,10 +42,10 @@ export const StyledTextInput: React.FC<StyledTextInputProps> = ({
       ...(!!icon && styles.inputWithIcon),
       ...inputStyles,
       ...(!!error && styles.inputError),
-      ...(isFocused && styles.inputFocused),
+      ...(inputRef?.current?.isFocused() && styles.inputFocused),
       ...(disabled && styles.inputDisabled),
     }),
-    [icon, error, disabled, inputStyles]
+    [icon, error, disabled, inputStyles, inputRef?.current?.isFocused()]
   );
 
   return (
@@ -52,6 +53,7 @@ export const StyledTextInput: React.FC<StyledTextInputProps> = ({
       {!!label && <StyledText style={[styles.labelText, labelStyles]}>{label}</StyledText>}
       <View style={styles.inputContainer}>
         <TextInput
+          ref={inputRef}
           returnKeyType='done'
           numberOfLines={1}
           {...rest}
@@ -59,16 +61,13 @@ export const StyledTextInput: React.FC<StyledTextInputProps> = ({
           placeholderTextColor={colors.gray100}
           secureTextEntry={isPasswordVisible}
           selectionColor={colors.black}
-          onFocus={() => setIsFocused(true)}
-          onBlur={() => setIsFocused(false)}
         />
         {secureTextEntry && (
           <IconButton
             onPress={() => setIsPasswordVisible(!isPasswordVisible)}
             icon={isPasswordVisible ? Icons.VisionLow : Icons.Vision}
             style={styles.iconButton}
-            iconSize={xScale(18)}
-            iconStyle={isPasswordVisible && styles.iconPasswordInactive}
+            iconStyle={isPasswordVisible && (styles.iconPasswordInactive as StyleProp<ImageStyle>)}
           />
         )}
         {!secureTextEntry && rightIcon}

@@ -8,7 +8,7 @@ export interface ScreenWrapperProps extends PropsWithChildren {
   isScroll?: boolean;
   isFlashList?: boolean;
   isNoPadding?: boolean;
-  hasBottomSafeArea?: boolean;
+  hasSafeArea?: boolean;
   gradientColors?: string[];
   bounces?: boolean;
   contentContainerStyle?: StyleProp<ViewStyle>;

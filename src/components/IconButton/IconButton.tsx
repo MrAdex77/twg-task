@@ -1,11 +1,11 @@
 import { colors } from "@styles/colors";
 import { xScale } from "@utils/scale";
-import { Image, ImageStyle } from "expo-image";
+import { Image, ImageSource, ImageStyle } from "expo-image";
 import React from "react";
 import { ActivityIndicator, StyleProp, StyleSheet, TouchableOpacity, ViewStyle } from "react-native";
 
 export interface IconButtonProps {
-  icon?: any;
+  icon?: string | number | string[] | ImageSource | ImageSource[] | NodeRequire;
   style?: StyleProp<ViewStyle>;
   iconStyle?: StyleProp<ImageStyle>;
   onPress?: () => void;
@@ -40,7 +40,7 @@ export const IconButton: React.FC<IconButtonProps> = ({
         style,
       ]}
       disabled={loading}>
-      {loading ? <ActivityIndicator color={colors.white} /> : <Image source={icon} style={[styles.icon, iconStyle]} />}
+      {loading ? <ActivityIndicator color={colors.white} /> : <Image source={icon as ImageSource} style={[styles.icon, iconStyle]} />}
     </TouchableOpacity>
   );
 };

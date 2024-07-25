@@ -51,16 +51,15 @@ const SignUpScreen = ({ navigation }: SignUpScreenProps) => {
     <ScreenWrapper style={styles.container}>
       <StyledText style={styles.h1}>Create account</StyledText>
       <View style={styles.inputsWrapper}>
-        <StyledTextInput label='e-mail address' value={email} onChangeText={setEmail} error={error?.message} />
-        <StyledTextInput label='first name' value={firstName} onChangeText={setFirstName} error={error?.message} />
-        <StyledTextInput label='last name' value={lastName} onChangeText={setLastName} error={error?.message} />
-        <StyledTextInput label='password' secureTextEntry value={password} onChangeText={setPassword} error={error?.message} />
+        <StyledTextInput label='e-mail address' value={email} onChangeText={setEmail} />
+        <StyledTextInput label='first name' value={firstName} onChangeText={setFirstName} />
+        <StyledTextInput label='last name' value={lastName} onChangeText={setLastName} />
+        <StyledTextInput label='password' secureTextEntry value={password} onChangeText={setPassword} />
         <StyledTextInput
           label='password confirmation'
           secureTextEntry
           value={passwordConfirmation}
           onChangeText={setPasswordConfirmation}
-          error={error?.message}
         />
       </View>
       <View style={styles.buttonWrapper}>
