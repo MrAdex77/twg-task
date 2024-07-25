@@ -22,7 +22,7 @@ export const Header = ({
   const headerProps = useMemo(() => ({ canGoBack: navigation.canGoBack(), tintColor: "" }), [navigation]);
 
   return (
-    <>
+    <View style={styles.bg}>
       <View style={[styles.header, isTranslucent && { ...styles.translucent, top: top }, style]}>
         <Row style={styles.leftHeaderContent}>
           {headerLeft ? (
@@ -46,6 +46,6 @@ export const Header = ({
         </Row>
         <Row style={styles.rightHeaderContent}>{headerRight?.(headerProps)}</Row>
       </View>
-    </>
+    </View>
   );
 };

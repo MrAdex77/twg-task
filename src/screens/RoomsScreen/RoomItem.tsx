@@ -5,10 +5,13 @@ import { RoomsScreenProps } from "@navigation/types";
 import { useNavigation } from "@react-navigation/native";
 import { colors } from "@styles/colors";
 import { defaultStyles } from "@styles/typography";
-import React, { memo } from "react";
+import React, { memo, useEffect } from "react";
 import { Image, Pressable, StyleSheet, View } from "react-native";
 import { SingleRoomType } from "../../types/generated/graphql";
 
+import { useQuery, useSubscription } from "@apollo/client";
+import { GET_ROOM, MESSAGE_ADDED } from "@constants/queries";
+import { calculateHowLongAgo } from "@utils/common";
 import { xScale, yScale } from "utils/scale";
 
 interface RoomItemProps {
@@ -17,11 +20,26 @@ interface RoomItemProps {
 
 const RoomItem = ({ rooms }: RoomItemProps) => {
   const { name, id } = rooms;
-  const isActive = false;
+
+  const { data } = useQuery(GET_ROOM, {
+    variables: {
+      id,
+    },
+  });
+  const { data: newMessage } = useSubscription(MESSAGE_ADDED, { variables: { roomId: id } });
+
+  const lastMessage = data?.room?.messages[0];
+
+  const [isActive, setIsActive] = React.useState<boolean>(Boolean(newMessage));
 
   const { navigate } = useNavigation<RoomsScreenProps["navigation"]>();
 
+  useEffect(() => {
+    setIsActive(Boolean(newMessage));
+  }, [newMessage]);
+
   const handlePress = () => {
+    setIsActive(false);
     navigate(Routes.Chat, { id });
   };
 
@@ -34,10 +52,16 @@ const RoomItem = ({ rooms }: RoomItemProps) => {
             {name}
           </StyledText>
           <StyledText style={[styles.bodyText, isActive && styles.active]} numberOfLines={1}>
-            {name}
+            {newMessage ? newMessage?.messageAdded?.body : lastMessage?.body}
           </StyledText>
         </View>
-        <View>{isActive ? <View style={styles.dot} /> : <StyledText style={styles.caption}>24m ago</StyledText>}</View>
+        <View>
+          {isActive ? (
+            <View style={styles.dot} />
+          ) : (
+            <StyledText style={styles.caption}>{calculateHowLongAgo(lastMessage?.insertedAt)}</StyledText>
+          )}
+        </View>
       </Row>
     </Pressable>
   );

@@ -18,6 +18,9 @@ const styles = StyleSheet.create({
     paddingVertical: xScale(24),
     justifyContent: "space-between",
   },
+  bg: {
+    backgroundColor: colors.blue100,
+  },
   leftHeaderContent: {
     flex: 1,
     left: gap,

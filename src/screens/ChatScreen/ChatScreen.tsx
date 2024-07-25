@@ -18,7 +18,7 @@ import { Bubble, GiftedChat, IMessage } from "react-native-gifted-chat";
 const ChatScreen = ({ navigation, route }: ChatScreenProps) => {
   const { id } = route.params;
   const [messages, setMessages] = useState<IMessage[]>([]);
-  const { data, loading } = useQuery(GET_ROOM, {
+  const { data, loading, refetch } = useQuery(GET_ROOM, {
     variables: {
       id,
     },
@@ -27,6 +27,7 @@ const ChatScreen = ({ navigation, route }: ChatScreenProps) => {
   const { data: message } = useSubscription(MESSAGE_ADDED, { variables: { roomId: id } });
 
   useEffect(() => {
+    refetch();
     if (data?.room?.messages) {
       setMessages(mapMessages(data?.room?.messages));
     }
@@ -65,7 +66,7 @@ const ChatScreen = ({ navigation, route }: ChatScreenProps) => {
     });
   }, [navigation]);
 
-  const handleSend = async (messages) => {
+  const handleSend = async (messages: IMessage[]) => {
     await sendMessage({
       variables: {
         roomId: id,
@@ -82,6 +83,7 @@ const ChatScreen = ({ navigation, route }: ChatScreenProps) => {
         renderBubble={(props) => (
           <Bubble
             {...props}
+            renderTime={() => null}
             wrapperStyle={{ left: styles.leftBubble, right: styles.rightBubble }}
             textStyle={{ left: styles.text, right: styles.text }}
           />
@@ -118,9 +120,21 @@ const styles = StyleSheet.create({
   },
   leftBubble: {
     backgroundColor: colors.white,
+    padding: xScale(12),
+    borderBottomRightRadius: xScale(12),
+    marginVertical: yScale(5),
+    borderBottomLeftRadius: 0,
+    borderTopRightRadius: xScale(12),
+    borderTopLeftRadius: xScale(12),
   },
   rightBubble: {
     backgroundColor: colors.plum300,
+    padding: xScale(12),
+    marginVertical: yScale(5),
+    borderBottomRightRadius: 0,
+    borderBottomLeftRadius: xScale(12),
+    borderTopRightRadius: xScale(12),
+    borderTopLeftRadius: xScale(12),
   },
   text: {
     ...defaultStyles.bodyText,

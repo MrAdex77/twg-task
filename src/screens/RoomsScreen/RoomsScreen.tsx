@@ -1,5 +1,6 @@
 import { useQuery } from "@apollo/client";
 import { IconButton } from "@components/IconButton/IconButton";
+import { ScreenWrapper } from "@components/layout/ScreenWrapper/ScreenWrapper";
 import { Icons } from "@constants/icons";
 import { GET_ROOMS } from "@constants/queries";
 import { Routes } from "@navigation/routes";
@@ -7,7 +8,7 @@ import { RoomsScreenProps } from "@navigation/types";
 import { colors } from "@styles/colors";
 import { xScale, yScale } from "@utils/scale";
 import { useLayoutEffect } from "react";
-import { FlatList, StyleSheet, View } from "react-native";
+import { FlatList, StyleSheet } from "react-native";
 import RoomItem from "./RoomItem";
 
 const RoomsScreen = ({ navigation }: RoomsScreenProps) => {
@@ -25,13 +26,13 @@ const RoomsScreen = ({ navigation }: RoomsScreenProps) => {
   }, [navigation]);
 
   return (
-    <View style={styles.container}>
+    <ScreenWrapper style={styles.container} hasSafeArea={false} isLoading={loading}>
       <FlatList
         data={data?.usersRooms?.rooms}
         contentContainerStyle={styles.contentContainer}
         renderItem={({ item }) => <RoomItem rooms={item} />}
       />
-    </View>
+    </ScreenWrapper>
   );
 };
 
